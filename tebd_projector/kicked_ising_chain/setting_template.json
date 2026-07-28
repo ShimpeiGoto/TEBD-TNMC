@@ -1,0 +1,14 @@
+{
+    "LatticeSize": 21,
+    "BondDimension": 14,
+    "StepNumber": 5,
+    "TransverseField": 0.25,
+    "LongitudinalField": 0.10,
+    "WarmingStep": 1000,
+    "SampleNumber": 1048576,
+    "DecayConstant": 0.0,
+    "SingularValuePower": 1.0,
+    "Interval": 4096,
+    "PseudoInvThreshold": 1e-6,
+    "RelativeFactor": 0.1
+}

@@ -1,0 +1,14 @@
+{
+    "LatticeSize": 20,
+    "BondDimension": 2,
+    "StepNumber": 5,
+    "TimeStep": 0.10,
+    "Jz": 1.0,
+    "WarmingStep": 1000,
+    "SampleNumber": 262144,
+    "DecayConstant": 1e-10,
+    "SingularValuePower": 1.0,
+    "Interval": 1000,
+    "PseudoInvThreshold": 1e-6,
+    "RandomRatio": 1e-3
+}
