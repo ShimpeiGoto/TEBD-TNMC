@@ -1,6 +1,6 @@
 /**
-@file tnmc_tebd.hpp
-@brief Header file for TEBD-based tensor network Monte Carlo
+@file tnmc_random_unitary.hpp
+@brief Header file for TEBD-based tensor network Monte Carlo with random projectors
 */
 #pragma once
 #include <algorithm>
@@ -26,6 +26,12 @@ namespace tnmc_random {
         to_right ///< Direction to right
     };
 
+    /**
+     @brief Function that generates unitary matrix Haar randomly following F. Mezzadri, NOTICES of the AMS 54, 592
+     @param [in] std::vector<itensor::Index> inds: Set of indices used in a result tensor
+     @param [inout] std::mt19937_64& engine :  random number generator
+     @return Haar-randomly generated unitary matrix. The structure of returned tensor is Tensor(u_inds, prime(u_inds))
+     */
     inline itensor::ITensor random_unitary(std::vector<itensor::Index> inds, std::mt19937_64 &engine) {
         auto [Converter, u_inds] = itensor::combiner(inds, {"Tags", "Proj"});
         itensor::ITensor z_tensor(u_inds, itensor::prime(u_inds));
@@ -63,6 +69,15 @@ namespace tnmc_random {
             void update_overlap_local_(int n, direction dir);
             void update_(tensor_storage::tensor_storage &storage, int n, int t);
         public:
+            /**
+            @brief Constructor for the class that manages the tensor network Monte Calro approach for unitary evolution
+            @param [in] gates :  vector of vector of pairs <int, itensor::ITensor> that represents the input unitary gates. A pair <int, itensor::ITensor> contains the left site index to be operated and the unitary gate. The vector of pairs represents one layer. The whole circuit is given as the vector of layers.
+            @param [in] psi: An initial matrix-product state used in the unitary evolution
+            @param [in] maxdim: The maximum bond dimension used in the tensor network Monte Carlo approach
+            @return An instance of the class that manages the tensor network Monte Carlo approach
+            @param [inout] std::mt19937_64& engine :  random number generator used for constructing random projectors
+            @details Constructor for the class that manages the tensor network Monte Carlo approach. After an initialization, one should call .set_log_weight_function method to set a weight function. Then, .MH_update method is called without observing expectation values enough times for a thermalization. In a measuring phase, .MH_update and .expectation_values methods are called alternately, and one collects the samples of the expectation values.
+            */
             tnmc_random(std::vector<std::vector<std::pair<int, itensor::ITensor>>> &gates, itensor::MPS &psi, int maxdim, std::mt19937_64 engine);
             std::vector<double> MH_update();
             /**
