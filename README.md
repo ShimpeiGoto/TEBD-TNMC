@@ -1,5 +1,5 @@
 # TEBD-TNMC
-This is the ITensor-based implementation of tensor-network Monte Calro (TNMC) approach based on time-evolving block decimation (TEBD) proposed in arXiv:2608.XXXX.
+This is the ITensor-based implementation of tensor-network Monte Calro (TNMC) approach based on time-evolving block decimation (TEBD) proposed in arXiv:2609.12466.
 
 # Requirements
 The codes heavily depends on the C++ version of ITensor library (https://github.com/ITensor/ITensor) that requries C++17. Consequently, a compiler supporting C++17 is required for compiling the codes. The codes are developed with ITensor v3.2.0.
